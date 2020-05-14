@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pomodoro Timer</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body id="body">
+        <header>Pomodoro Timer</header>
+        <div id="container">
+            <div id="work">
+                <button id="btn-work">WORK</button>
+                <div id="btn-control">
+                    <button id="up-work"><i class="fa fa-chevron-up"></i></button>
+                    <p id="work-timer">25</p>
+                    <button id="down-work"><i class="fa fa-chevron-down"></i></button>
+                </div>
+            </div>
+            <div id="timer">
+                <p id="clock-msg">WORK TIME !!</p>
+                <p id="clock">25:00</p>
+            </div>
+            <div id="break">
+                <button id="btn-break">BREAK</button>
+                <div id="btn-control">
+                    <button id="up-break"><i class="fa fa-chevron-up"></i></button>
+                    <p id="break-timer">5</p>
+                    <button id="down-break"><i class="fa fa-chevron-down"></i></button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="commands">
+                <button id="play" onclick="clock(); document.getElementById('clock').innerHTML;"><i class="fa fa-play"></i></button>
+                <button id="pause" onclick="clearInterval(myTimer);"><i class="fa fa-pause"></i></button>
+                <button id="reset"><i class="fa fa-undo"></i></button>
+            </div>
+            <p id="copyright">© Copyrights 2020 : Created by Keddad Youcef</p>
+        </footer>
+    </body>
+    <script>
+        const work = document.getElementById('btn-work');
+        const brk = document.getElementById('btn-break');
+        const para = document.getElementById('clock');
+        const init = document.getElementById('clock').textContent;
+        const bod = document.getElementById('body');
+        const clockMsg = document.getElementById("clock-msg");
+
+        work.addEventListener('click',() => {
+            para.textContent = '25:00';
+            bod.style.backgroundColor = 'rgb(114, 247, 114)';
+            clockMsg.textContent = 'WORK TIME !!';
+
+        });
+        brk.addEventListener('click',() => {
+            para.textContent = '5:00';
+            bod.style.backgroundColor = 'rgb(73, 143, 193)'; 
+            clockMsg.textContent = 'BREAK TIME !!';
+        });
+
+        const upWork = document.getElementById('up-work');
+        const downWork = document.getElementById('down-work');
+        const upBreak = document.getElementById('up-break');
+        const downBreak = document.getElementById('down-break');
+        const paraWork = document.getElementById('work-timer');
+        const paraBreak = document.getElementById('break-timer');
+
+        upWork.addEventListener('click', () => {
+            paraWork.textContent = Number(paraWork.textContent) + 1;
+            myTime = document.getElementById("clock").textContent;
+            var timeArray = myTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = timeArray[1];
+            document.getElementById("clock").innerHTML = (Number(m) + 1) + ':' + s;
+        });
+        downWork.addEventListener('click', () => {
+            paraWork.textContent = Number(paraWork.textContent) - 1;
+            myTime = document.getElementById("clock").textContent;
+            var timeArray = myTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = timeArray[1];
+            document.getElementById("clock").innerHTML = (Number(m) - 1) + ':' + s;
+        });
+        upBreak.addEventListener('click', () => {
+            paraBreak.textContent = Number(paraBreak.textContent) + 1;
+            myTime = document.getElementById("clock").textContent;
+            var timeArray = myTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = timeArray[1];
+            document.getElementById("clock").innerHTML = (Number(m) + 1) + ':' + s;
+        });
+        downBreak.addEventListener('click', () => {
+            paraBreak.textContent = Number(paraBreak.textContent) - 1;
+            myTime = document.getElementById("clock").textContent;
+            var timeArray = myTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = timeArray[1];
+            document.getElementById("clock").innerHTML = (Number(m) - 1) + ':' + s;
+        });
+
+        var myTimer;
+        function clock() {
+            myTimer = setInterval(myClock, 1000);
+            myTime = document.getElementById("clock").textContent;
+            var timeArray = myTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = timeArray[1];
+            var check = checkSecond(s - 1);
+            if(s==00){m=m-1}
+            
+
+            function myClock() {
+                
+                 
+                if (check <= 9 && check >= 0) {document.getElementById("clock").innerHTML = m + ':0' + check--;
+                } else {document.getElementById("clock").innerHTML = m + ':' + check--}
+                
+                if (m == 0 && check == -1) { clearInterval(myTimer);}
+                if (check < 0) {
+                    check = 59;
+                    m -= 1;
+                }
+                
+                 
+                
+            }
+            function checkSecond(sec) {
+                if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+                if (sec < 0) {sec = "59"};
+                return sec;
+            }
+
+        }
+
+        const res = document.getElementById("reset");
+        res.addEventListener("click", () => {
+            para.textContent = myTime;
+        });
+
+
+    
+        
+    </script>
+</html>
