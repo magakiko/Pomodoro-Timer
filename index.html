@@ -75,12 +75,18 @@
             document.getElementById("clock").innerHTML = (Number(m) + 1) + ':' + s;
         });
         downWork.addEventListener('click', () => {
+            if(Number(paraWork.textContent) == 0) {
+                paraWork.textContent = '0';
+                document.getElementById("clock").innerHTML = '00:00';
+
+            } else {
             paraWork.textContent = Number(paraWork.textContent) - 1;
             myTime = document.getElementById("clock").textContent;
             var timeArray = myTime.split(/[:]+/);
             var m = timeArray[0];
             var s = timeArray[1];
             document.getElementById("clock").innerHTML = (Number(m) - 1) + ':' + s;
+            }
         });
         upBreak.addEventListener('click', () => {
             paraBreak.textContent = Number(paraBreak.textContent) + 1;
@@ -91,12 +97,18 @@
             document.getElementById("clock").innerHTML = (Number(m) + 1) + ':' + s;
         });
         downBreak.addEventListener('click', () => {
+            if(Number(paraBreak.textContent) == 0) {
+                paraBreak.textContent = '0';
+                document.getElementById("clock").innerHTML = '00:00';
+
+            } else {
             paraBreak.textContent = Number(paraBreak.textContent) - 1;
             myTime = document.getElementById("clock").textContent;
             var timeArray = myTime.split(/[:]+/);
             var m = timeArray[0];
             var s = timeArray[1];
             document.getElementById("clock").innerHTML = (Number(m) - 1) + ':' + s;
+            }
         });
 
         var myTimer;
